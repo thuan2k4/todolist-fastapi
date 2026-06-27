@@ -21,9 +21,9 @@ class UserResponse(BaseModel):
     message: Optional[str] = None
 
 # ----------------------------------------------------------------
-# 2. "CƠ SỞ DỮ LIỆU" GIẢ LẬP BẰNG LIST
+# 2. "CƠ SềEDỮ LIềE" GIẢ LẬP BẰNG LIST
 # ----------------------------------------------------------------
-# Sử dụng List bình thường để lưu dữ liệu thay vì dùng Database
+# Sử dụng List bình thường đềElưu dữ liệu thay vì dùng Database
 tasks_db: List[Task] = []
 
 # ----------------------------------------------------------------
@@ -33,7 +33,7 @@ tasks_db: List[Task] = []
 # GET: Lấy danh sách tất cả công việc
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello": "Branch A"}
 
 @app.get("/tasks")
 def get_tasks():
@@ -42,7 +42,7 @@ def get_tasks():
 # POST: Tạo một công việc mới
 @app.post("/tasks")
 def create_task(task: Task):
-    # (Tùy chọn) Kiểm tra xem ID có bị trùng không
+    # (Tùy chọn) Kiểm tra xem ID có bềEtrùng không
     for existing_task in tasks_db:
         if existing_task.id == task.id:
             raise HTTPException(status_code=400, detail="ID công việc đã tồn tại!")
@@ -51,7 +51,7 @@ def create_task(task: Task):
     tasks_db.append(task)
     return {"message": "Tạo công việc thành công!", "task": task}
 
-# PUT: Chỉnh sửa/Cập nhật toàn bộ một công việc dựa vào ID
+# PUT: Chỉnh sửa/Cập nhật toàn bềEmột công việc dựa vào ID
 @app.put("/tasks/{task_id}")
 def update_task(task_id: int, updated_task: Task):
     for index, existing_task in enumerate(tasks_db):
@@ -62,7 +62,7 @@ def update_task(task_id: int, updated_task: Task):
             return {"message": "Cập nhật thành công!", "task": updated_task}
             
     # Nếu vòng lặp chạy hết mà không tìm thấy ID thì báo lỗi
-    raise HTTPException(status_code=404, detail="Không tìm thấy công việc để cập nhật")
+    raise HTTPException(status_code=404, detail="Không tìm thấy công việc đềEcập nhật")
 
 # DELETE: Xóa một công việc dựa vào ID
 @app.delete("/tasks/{task_id}")
@@ -73,4 +73,4 @@ def delete_task(task_id: int):
             del tasks_db[index]
             return {"message": f"Đã xóa công việc có ID {task_id}"}
             
-    raise HTTPException(status_code=404, detail="Không tìm thấy công việc để xóa")
+    raise HTTPException(status_code=404, detail="Không tìm thấy công việc đềExóa")
