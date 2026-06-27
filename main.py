@@ -33,7 +33,7 @@ tasks_db: List[Task] = []
 # GET: Lấy danh sách tất cả công việc
 @app.get("/")
 def read_root():
-    return {"Hello": "Branch A"}
+    return {"Hello": "Branch B"}
 
 @app.get("/tasks")
 def get_tasks():
